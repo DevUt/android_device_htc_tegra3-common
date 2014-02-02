@@ -8,7 +8,7 @@ import android.preference.PreferenceManager;
 
 public class DoubleTap2WakeSwitch implements OnPreferenceChangeListener {
 
-    private static final String FILE = "/sys/android_touch/s2w_allow_double_tap";
+    private static final String FILE = "/sys/android_touch/doubletap2wake";
 
     public static boolean isSupported() {
         return Utils.fileWritable(FILE);
