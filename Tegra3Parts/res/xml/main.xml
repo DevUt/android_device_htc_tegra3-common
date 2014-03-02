@@ -85,4 +85,15 @@
 	        android:entryValues="@array/buttonlight_intensity_values" />
 	</PreferenceCategory>
 
+	<PreferenceCategory
+    android:title="@string/category_vibration_intensity">
+      <!-- Vibration Intensity -->
+	    <ListPreference
+	        android:key="vibration_intensity"
+	        android:title="@string/vibration_intensity_title_head"
+	        android:summary="@string/vibration_intensity_summary_head"
+	        android:entries="@array/vibration_intensity_entries"
+	        android:entryValues="@array/vibration_intensity_values" />
+	</PreferenceCategory>
+
 </PreferenceScreen>

@@ -18,5 +18,6 @@ public class Startup extends BroadcastReceiver {
         DoubleTap2WakeDuration.restore(context);
         CalibrationControl.restore(context);
         ButtonBrightnessControl.restore(context);
+        VibrationIntensityControl.restore(context);
     }
 }

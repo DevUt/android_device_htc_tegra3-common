@@ -54,4 +54,22 @@
         <item>255</item>
     </string-array>
 
+    <string-array name="vibration_intensity_entries" translatable="false">
+        <item>Minimum</item>
+        <item>Barely there</item>
+        <item>Default</item>
+        <item>Stronger</item>
+        <item>Warning</item>
+        <item>Maximum</item>
+    </string-array>
+
+    <string-array name="vibration_intensity_values" translatable="false">
+        <item>25000</item>
+        <item>32000</item>
+        <item>38000</item>
+        <item>41000</item>
+        <item>44000</item>
+        <item>50000</item>
+    </string-array>
+
 </resources>

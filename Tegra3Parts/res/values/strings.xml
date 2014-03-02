@@ -36,4 +36,8 @@
     <string name="buttonlight_intensity_title_head">Button Brightness</string>
     <string name="buttonlight_intensity_summary_head">Change hardware button brightness values</string>
 
+    <string name="category_vibration_intensity">Vibration</string>
+    <string name="vibration_intensity_title_head">Vibration Intensity</string>
+    <string name="vibration_intensity_summary_head">Change vibration intensity to your hearts desire</string>
+
 </resources>

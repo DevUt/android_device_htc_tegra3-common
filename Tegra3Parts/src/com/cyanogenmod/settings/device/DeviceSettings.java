@@ -24,6 +24,7 @@ public class DeviceSettings extends PreferenceActivity  {
     public static final String KEY_DOUBLETAP2WAKE_DURATION = "s2w_double_tap_duration";
     public static final String KEY_CALIBRATION_CONTROL = "calibration_control";
     public static final String KEY_BUTTON_BRIGHTNESS = "button_brightness";
+    public static final String KEY_VIBRATION_INTENSITY = "vibration_intensity";
 
     private TwoStatePreference mS2WSwitch;
     private ListPreference mS2WStroke;
@@ -35,6 +36,7 @@ public class DeviceSettings extends PreferenceActivity  {
     private ListPreference mDoubleTap2WakeDuration;
     private TwoStatePreference mCalibrationControlSwitch;
     private ListPreference mButtonBrightness;
+    private ListPreference mVibrationIntensity;
         
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,10 @@ public class DeviceSettings extends PreferenceActivity  {
         mButtonBrightness.setValue(squashBrightnessValue(ButtonBrightnessControl.getValue(this)));
         mButtonBrightness.setOnPreferenceChangeListener(new ButtonBrightnessControl());
 
+        mVibrationIntensity = (ListPreference) findPreference(KEY_VIBRATION_INTENSITY);
+        mVibrationIntensity.setEnabled(VibrationIntensityControl.isSupported());
+        mVibrationIntensity.setValue(squashVibrationValue(VibrationIntensityControl.getValue(this)));
+        mVibrationIntensity.setOnPreferenceChangeListener(new VibrationIntensityControl());
     }
 
     @Override
@@ -144,7 +150,18 @@ public class DeviceSettings extends PreferenceActivity  {
         }
         return new Integer((intValue/10)*10).toString();
     }
-
+    
+    private String squashVibrationValue(String value) {
+        int intValue=new Integer(value).intValue();
+        if(intValue < 20000){
+        	return "20000";
+        }
+        if(intValue > 50000){
+        	return "50000";
+        }
+        return new Integer((intValue/1000)*1000).toString();
+    }
+    
     private String squashDurationValue(String value) {
         // map it to 150, 200, 250, 300, 350 if not exact value
         int intValue=new Integer(value).intValue();
