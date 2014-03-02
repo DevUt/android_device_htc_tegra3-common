@@ -73,4 +73,16 @@
           android:title="@string/calibration_control_title_head"
           android:summary="@string/calibration_control_summary_head" />
 	</PreferenceCategory>
+
+	<PreferenceCategory
+    android:title="@string/category_buttonlight_intensity">
+      <!-- Button Backlight Intensity -->
+	    <ListPreference
+	        android:key="button_brightness"
+	        android:title="@string/buttonlight_intensity_title_head"
+	        android:summary="@string/buttonlight_intensity_summary_head"
+	        android:entries="@array/buttonlight_intensity_entries"
+	        android:entryValues="@array/buttonlight_intensity_values" />
+	</PreferenceCategory>
+
 </PreferenceScreen>

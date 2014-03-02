@@ -32,4 +32,8 @@
     <string name="calibration_control_title_head">Calibration Control</string>
     <string name="calibration_control_summary_head">Disable to fix multitouch issues</string>
 
+    <string name="category_buttonlight_intensity">Lights</string>
+    <string name="buttonlight_intensity_title_head">Button Brightness</string>
+    <string name="buttonlight_intensity_summary_head">Change hardware button brightness values</string>
+
 </resources>

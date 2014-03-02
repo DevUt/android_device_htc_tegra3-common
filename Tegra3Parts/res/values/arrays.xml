@@ -27,7 +27,7 @@
         <item>300 ms</item>
         <item>350 ms</item>
     </string-array>
-        
+
     <string-array name="s2w_double_tap_duration_values" translatable="false">
         <item>150</item>
         <item>200</item>
@@ -35,4 +35,23 @@
         <item>300</item>
         <item>350</item>
     </string-array>
+
+    <string-array name="buttonlight_intensity_entries" translatable="false">
+        <item>Default</item>
+        <item>Dimmerr</item>
+        <item>Dimmer</item>
+        <item>Normal</item>
+        <item>Brighter</item>
+        <item>Brightest</item>
+    </string-array>
+
+    <string-array name="buttonlight_intensity_values" translatable="false">
+        <item>10</item>
+        <item>50</item>
+        <item>100</item>
+        <item>150</item>
+        <item>200</item>
+        <item>255</item>
+    </string-array>
+
 </resources>

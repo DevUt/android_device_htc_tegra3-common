@@ -23,6 +23,7 @@ public class DeviceSettings extends PreferenceActivity  {
     public static final String KEY_DOUBLETAB2WAKE_SWITCH = "s2w_double_tap_wake";
     public static final String KEY_DOUBLETAP2WAKE_DURATION = "s2w_double_tap_duration";
     public static final String KEY_CALIBRATION_CONTROL = "calibration_control";
+    public static final String KEY_BUTTON_BRIGHTNESS = "button_brightness";
 
     private TwoStatePreference mS2WSwitch;
     private ListPreference mS2WStroke;
@@ -33,6 +34,7 @@ public class DeviceSettings extends PreferenceActivity  {
     private TwoStatePreference mDoubleTap2WakeSwitch;
     private ListPreference mDoubleTap2WakeDuration;
     private TwoStatePreference mCalibrationControlSwitch;
+    private ListPreference mButtonBrightness;
         
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,7 @@ public class DeviceSettings extends PreferenceActivity  {
         mDoubleTap2WakeSwitch.setChecked(DoubleTap2WakeSwitch.isEnabled(this));
         mDoubleTap2WakeSwitch.setOnPreferenceChangeListener(new DoubleTap2WakeSwitch());
 
-		mDoubleTap2WakeDuration = (ListPreference) findPreference(KEY_DOUBLETAP2WAKE_DURATION);
+        mDoubleTap2WakeDuration = (ListPreference) findPreference(KEY_DOUBLETAP2WAKE_DURATION);
         mDoubleTap2WakeDuration.setEnabled(DoubleTap2WakeDuration.isSupported());
         mDoubleTap2WakeDuration.setValue(squashDurationValue(DoubleTap2WakeDuration.getValue(this)));
         mDoubleTap2WakeDuration.setOnPreferenceChangeListener(new DoubleTap2WakeDuration());
@@ -83,6 +85,12 @@ public class DeviceSettings extends PreferenceActivity  {
         mCalibrationControlSwitch.setEnabled(CalibrationControl.isSupported());
         mCalibrationControlSwitch.setChecked(CalibrationControl.isEnabled(this));
         mCalibrationControlSwitch.setOnPreferenceChangeListener(new CalibrationControl());
+
+        mButtonBrightness = (ListPreference) findPreference(KEY_BUTTON_BRIGHTNESS);
+        mButtonBrightness.setEnabled(ButtonBrightnessControl.isSupported());
+        mButtonBrightness.setValue(squashBrightnessValue(ButtonBrightnessControl.getValue(this)));
+        mButtonBrightness.setOnPreferenceChangeListener(new ButtonBrightnessControl());
+
     }
 
     @Override
@@ -136,7 +144,7 @@ public class DeviceSettings extends PreferenceActivity  {
         }
         return new Integer((intValue/10)*10).toString();
     }
-    
+
     private String squashDurationValue(String value) {
         // map it to 150, 200, 250, 300, 350 if not exact value
         int intValue=new Integer(value).intValue();
