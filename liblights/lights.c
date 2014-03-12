@@ -246,7 +246,6 @@ static int set_light_buttons_locked(struct light_device_t* dev,
 
     if(on && brightness != g_button_brightness) {
         g_button_brightness = brightness;
-        err = write_int(BUTTON_BRIGHTNESS_FILE, brightness);
     }
     // Only enable/disable on a state change (XOR)
     if(was_on ^ on) {
