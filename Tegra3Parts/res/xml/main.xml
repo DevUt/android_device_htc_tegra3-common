@@ -39,7 +39,7 @@
 	        android:key="s2w_double_tap_duration"
 	        android:title="@string/s2w_double_tap_duration_title_head"
 	        android:summary="@string/s2w_double_tap_duration_summary_head"
-            android:dependency="s2w_double_tap_wake"
+	        android:dependency="s2w_double_tap_wake"
 	        android:entries="@array/s2w_double_tap_duration_entries"
 	        android:entryValues="@array/s2w_double_tap_duration_values" />
 	</PreferenceCategory>
@@ -66,17 +66,17 @@
 	</PreferenceCategory>
 
 	<PreferenceCategory
-    android:title="@string/category_touchscreen">
-      <!-- Calibration Control Option -->
-      <CheckBoxPreference
+        android:title="@string/category_touchscreen">
+        <!-- Calibration Control Option -->
+        <CheckBoxPreference
           android:key="calibration_control"
           android:title="@string/calibration_control_title_head"
           android:summary="@string/calibration_control_summary_head" />
 	</PreferenceCategory>
 
 	<PreferenceCategory
-    android:title="@string/category_buttonlight_intensity">
-      <!-- Button Backlight Intensity -->
+        android:title="@string/category_buttonlight_intensity">
+        <!-- Button Backlight Intensity -->
 	    <ListPreference
 	        android:key="button_brightness"
 	        android:title="@string/buttonlight_intensity_title_head"
@@ -86,8 +86,8 @@
 	</PreferenceCategory>
 
 	<PreferenceCategory
-    android:title="@string/category_vibration_intensity">
-      <!-- Vibration Intensity -->
+        android:title="@string/category_vibration_intensity">
+        <!-- Vibration Intensity -->
 	    <ListPreference
 	        android:key="vibration_intensity"
 	        android:title="@string/vibration_intensity_title_head"

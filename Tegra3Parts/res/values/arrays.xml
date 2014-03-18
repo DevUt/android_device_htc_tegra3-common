@@ -37,6 +37,7 @@
     </string-array>
 
     <string-array name="buttonlight_intensity_entries" translatable="false">
+        <item>Disabled</item>
         <item>Default</item>
         <item>Dimmerr</item>
         <item>Dimmer</item>
@@ -46,6 +47,7 @@
     </string-array>
 
     <string-array name="buttonlight_intensity_values" translatable="false">
+        <item>0</item>
         <item>10</item>
         <item>50</item>
         <item>100</item>

@@ -14,11 +14,11 @@ public class ButtonBrightnessControl implements OnPreferenceChangeListener {
         return Utils.fileWritable(FILE);
     }
 
-	public static String getValue(Context context) {
-		String value = Utils.getFileValue(FILE, "150");
+    public static String getValue(Context context) {
+        String value = Utils.getFileValue(FILE, "150");
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         return sharedPrefs.getString(DeviceSettings.KEY_BUTTON_BRIGHTNESS, value);
-	}
+    }
 	
     /**
      * Restore Buttonlight Brightness setting from SharedPreferences. (Write to kernel.)
@@ -28,9 +28,15 @@ public class ButtonBrightnessControl implements OnPreferenceChangeListener {
         if (!isSupported()) {
             return;
         }
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        Boolean backlightDisabled = sharedPrefs.getBoolean(DeviceSettings.KEY_BACKLIGHTDISABLE, false);
 
-		String value = getValue(context);
-        Utils.writeValue(FILE, value);
+        if (!backlightDisabled) {
+	     String value = getValue(context);
+             Utils.writeValue(FILE, value);
+             return;
+        }
+        Utils.writeValue(FILE, "0");
     }
 
     @Override

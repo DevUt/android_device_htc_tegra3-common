@@ -15,10 +15,10 @@ public class BacklightDisable implements OnPreferenceChangeListener {
         return Utils.fileExists(FILE);
     }
 
-	public static boolean isEnabled(Context context) {
+    public static boolean isEnabled(Context context) {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         return sharedPrefs.getBoolean(DeviceSettings.KEY_BACKLIGHTDISABLE, false);
-	}
+    }
 	
     /**
      * Restore button backlight setting from SharedPreferences. (Write to kernel.)
