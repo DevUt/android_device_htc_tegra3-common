@@ -98,6 +98,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     camera.tegra
 
+# Pollyd
+PRODUCT_PACKAGES += \
+    Polly \
+    pollyd
+
 PRODUCT_PACKAGES += \
     hostapd_cli
 
