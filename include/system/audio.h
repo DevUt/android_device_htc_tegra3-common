@@ -221,7 +221,8 @@ typedef enum {
                                           AUDIO_FORMAT_DOLBY_SUB_DM),
     AUDIO_FORMAT_EAC3_DM             =  (AUDIO_FORMAT_EAC3 |
                                           AUDIO_FORMAT_DOLBY_SUB_DM),
-
+#endif
+#if defined(ENABLE_AV_ENHANCEMENTS) || defined(ENABLE_OFFLOAD_ENHANCEMENTS)
     /*Offload PCM formats*/
     AUDIO_FORMAT_PCM_16_BIT_OFFLOAD  = (AUDIO_FORMAT_PCM_OFFLOAD |
                                         AUDIO_FORMAT_PCM_SUB_16_BIT),
@@ -755,6 +756,8 @@ static inline bool audio_is_valid_format(audio_format_t format)
     case AUDIO_FORMAT_EVRCNW:
     case AUDIO_FORMAT_FLAC:
         return true;
+#endif
+#if defined(ENABLE_AV_ENHANCEMENTS) || defined(ENABLE_OFFLOAD_ENHANCEMENTS)
     case AUDIO_FORMAT_PCM_OFFLOAD:
         if (format != AUDIO_FORMAT_PCM_16_BIT_OFFLOAD &&
                 format != AUDIO_FORMAT_PCM_24_BIT_OFFLOAD) {
@@ -772,7 +775,7 @@ static inline bool audio_is_linear_pcm(audio_format_t format)
     return ((format & AUDIO_FORMAT_MAIN_MASK) == AUDIO_FORMAT_PCM);
 }
 
-#ifdef QCOM_HARDWARE
+#if defined(ENABLE_AV_ENHANCEMENTS) || defined(ENABLE_OFFLOAD_ENHANCEMENTS)
 static inline bool audio_is_offload_pcm(audio_format_t format)
 {
     return ((format & AUDIO_FORMAT_MAIN_MASK) == AUDIO_FORMAT_PCM_OFFLOAD);
