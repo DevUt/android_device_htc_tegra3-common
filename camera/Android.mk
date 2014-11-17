@@ -1,5 +1,4 @@
 ifeq ($(TARGET_BOARD_PLATFORM),tegra)
-
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
@@ -8,6 +7,9 @@ LOCAL_SRC_FILES := \
 
 LOCAL_SHARED_LIBRARIES := \
     libhardware liblog libcamera_client libutils
+
+LOCAL_C_INCLUDES += \
+        system/media/camera/include
 
 LOCAL_CFLAGS=-DNVIDIA_CAMERA_BLOB
 

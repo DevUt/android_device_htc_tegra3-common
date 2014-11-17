@@ -129,16 +129,21 @@ PRODUCT_PACKAGES += \
 # Other apps
 PRODUCT_PACKAGES += \
     Torch \
-    com.android.future.usb.accessory \
-    Tegra3Parts
+    Tegra3Parts \
+    com.android.future.usb.accessory
 
 # Video
 PRODUCT_PACKAGES += \
     libstagefrighthw
 
-# iw
+# Wifi
 PRODUCT_PACKAGES += \
-    iw
+    iw \
+    libwpa_client \
+    hostapd \
+    dhcpcd.conf \
+    wpa_supplicant \
+    wpa_supplicant.conf
 
 # Configs
 PRODUCT_COPY_FILES += \

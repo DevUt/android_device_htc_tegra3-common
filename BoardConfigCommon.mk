@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
 # Board
 TARGET_BOARD_PLATFORM := tegra
 TARGET_NO_BOOTLOADER := true
@@ -27,7 +26,13 @@ TARGET_CPU_SMP := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
 ARCH_ARM_HAVE_32_BYTE_CACHE_LINES := true
 ARCH_ARM_USE_NON_NEON_MEMCPY := true
+
+MALLOC_IMPL := dlmalloc
+
+# Board naming
 TARGET_NO_RADIOIMAGE := true
+TARGET_BOOTLOADER_BOARD_NAME :=
+TARGET_BOARD_PLATFORM := tegra
 
 # Optimization build flags
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
@@ -91,18 +96,26 @@ BOARD_SKIP_ANDROID_DOC_BUILD := true
 BOARD_SEPOLICY_DIRS := \
     device/htc/tegra3-common/sepolicy
 
-BOARD_SEPOLICY_UNION := \
+BOARD_SEPOLICY_UNION += \
         file_contexts \
         genfs_contexts \
-        app.te \
+        bluetooth.te \
         btmacreader.te \
         device.te \
+        domain.te \
         drmserver.te \
+	init.te \
         init_shell.te \
         file.te \
+        gpsd.te \
+        keystore.te \
+        lmkd.te \
+        mediaserver.te \
         rild.te \
         sensors_config.te \
-        shell.te \
         surfaceflinger.te \
-        system.te \
-        zygote.te
+        system_app.te \
+        system_server.te \
+        ueventd.te \
+	uim_sysfs.te \
+        vold.te
