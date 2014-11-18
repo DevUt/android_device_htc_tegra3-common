@@ -51,10 +51,9 @@ COMMON_GLOBAL_CFLAGS += -DHTC_TEGRA_AUDIO
 
 #Camera
 USE_CAMERA_STUB := false # set to true by vendor
-BOARD_HAVE_HTC_FFC := true
-BOARD_CAMERA_HAVE_ISO := true
-COMMON_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
-COMMON_GLOBAL_CFLAGS += -DHTC_CAMERA_HARDWARE
+# external/skia: Old SkImageDecoder::DecodeFile symbol.
+# Needed for camera.vendor.tegra.so and its dependencies.
+COMMON_GLOBAL_CFLAGS += -DSK_SUPPORT_LEGACY_DECODEFILE
 
 # Enable WEBGL in WebKit
 ENABLE_WEBGL := true
