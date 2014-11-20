@@ -1,1 +1,22 @@
 allow mediaserver { gpu_device nvhost_device }:chr_file rw_file_perms;
+
+# Write camera calibration data to /data/cam_calib/
+allow mediaserver camera_device:blk_file r_file_perms;
+allow mediaserver camera_data_file:dir rw_dir_perms;
+allow mediaserver camera_data_file:file create_file_perms;
+
+# Write to /dev/sockets/rild-audio-gsm
+allow mediaserver audio_device:sock_file write;
+
+
+# ?
+allow mediaserver debugfs:file r_file_perms;
+
+# ?
+allow mediaserver system_server:unix_stream_socket rw_stream_socket_perms;
+
+# ?
+allow mediaserver block_device:dir search;
+
+# ?
+allow mediaserver shell_exec:file rx_file_perms;

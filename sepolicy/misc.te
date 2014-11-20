@@ -1,0 +1,50 @@
+# WPA
+type rfkill_device, dev_type;
+allow wpa rfkill_device:chr_file rw_file_perms;
+
+
+# NVM Server
+type nvm_server, domain;
+type nvm_server_exec, exec_type, file_type;
+type nvm_socket, file_type;
+
+init_daemon_domain(nvm_server)
+
+
+# HTCBATT
+type htcbatt, domain;
+type htcbatt_exec, exec_type, file_type;
+type htcbatt_device, dev_type;
+
+init_daemon_domain(htcbatt)
+
+allow htcbatt self:capability net_admin;
+allow htcbatt htcbatt_device:chr_file rw_file_perms;
+# Wants to write /sys/devices/platform/htc_battery/eoc_stop
+allow htcbatt sysfs:file rw_file_perms;
+allow htcbatt self:netlink_kobject_uevent_socket create_socket_perms;
+
+
+# HDMID
+type hdmid, domain;
+type hdmid_exec, exec_type, file_type;
+type hdmid_socket, file_type;
+
+init_daemon_domain(hdmid)
+
+allow hdmid self:capability net_admin;
+allow hdmid init:unix_stream_socket rw_stream_socket_perms;
+allow hdmid self:netlink_kobject_uevent_socket create_socket_perms;
+
+
+# RILPOS
+type rilpos, domain;
+type rilpos_exec, exec_type, file_type;
+
+init_daemon_domain(rilpos)
+
+allow rilpos gps_data_file:sock_file create_file_perms;
+allow rilpos gps_data_file:dir rw_dir_perms;
+allow rilpos rild:unix_stream_socket { rw_stream_socket_perms connectto };
+allow rilpos rild_socket:sock_file write;
+

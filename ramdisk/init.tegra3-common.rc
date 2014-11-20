@@ -36,6 +36,14 @@ on post-fs-data
     symlink /data/cam_calib/calibration_front.bin /data/calibration_front.bin
     symlink /data/cam_calib/camera_overrides_front.isp /data/camera_overrides_front.isp
 
+
+    # Create RIL related folders
+    mkdir /data/modem_sec 0770 root radio
+    mkdir /data/modem_work 0770 root radio
+
+    restorecon /data/modem_sec
+    restorecon /data/modem_work
+
 on boot
     # Hardware tunables
 

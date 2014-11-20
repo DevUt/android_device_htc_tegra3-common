@@ -1,0 +1,2 @@
+persist.radio.matrace.enable  u:object_r:radio_prop:s0
+radio.matrace.available       u:object_r:radio_prop:s0

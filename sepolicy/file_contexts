@@ -12,29 +12,34 @@
 /dev/tegra-throughput             u:object_r:gpu_device:s0
 /dev/ttyHS1                       u:object_r:gps_device:s0
 /dev/ttyHS2                       u:object_r:hci_attach_dev:s0
-/dev/ttyACM0                      u:object_r:radio_device:s0
 
-/dev/cm3602                       u:object_r:sensors_device:s0
-/dev/akm8975_*                    u:object_r:sensors_device:s0
-/dev/ewtzmu2                      u:object_r:sensors_device:s0
-
-/data/amit(/.*)?                  u:object_r:sensors_data_file:s0
-/data/calibration(/.*)?           u:object_r:sensors_data_file:s0
-/data/lightsensor(/.*)?           u:object_r:sensors_data_file:s0
-/data/sensors(/.*)?               u:object_r:sensors_data_file:s0
 /data/tf(/.*)?                    u:object_r:tee_data_file:s0
 
-/system/bin/brcm_patchram_plus -- u:object_r:hci_attach_exec:s0
-/system/bin/glgps              -- u:object_r:gpsd_exec:s0
-/system/bin/sensors-config     -- u:object_r:sensors_config_exec:s0
-/system/bin/uim-sysfs             u:object_r:uim_sysfs_exec:s0
+# Sensors
+/dev/cm3602                       u:object_r:sensors_device:s0
+
+# HTCBATT
+/dev/htc_batt                     u:object_r:htcbatt_device:s0
+
+# WPA
+/dev/rfkill                       u:object_r:rfkill_device:s0
+
+/system/bin/nvm_server            u:object_r:nvm_server_exec:s0
+/system/bin/htcbatt               u:object_r:htcbatt_exec:s0
+/system/bin/hdmid                 u:object_r:hdmid_exec:s0
+/system/bin/rilposd               u:object_r:rilpos_exec:s0
+# poweron_modem_fls.sh is executed by libhtc_ril.so
+/system/bin/poweron_modem_fls.sh  u:object_r:rild_exec:s0
+/system/bin/make_sec_bin          u:object_r:rild_exec:s0
+/system/bin/InjectionTool         u:object_r:rild_exec:s0
+/system/bin/poweroff_modem.sh     u:object_r:rild_exec:s0
+/system/bin/IMCdownload           u:object_r:imc_exec:s0
 
 /sys/devices/tegradc\.0(/.*)?                u:object_r:sysfs_devices_tegradc:s0
 /sys/devices/tegradc\.1(/.*)?                u:object_r:sysfs_devices_tegradc:s0
 /sys/devices/platform/tegra-i2c.1/i2c-1/1-0010/update_fw    --  u:object_r:sysfs_firmware_writable:s0
 
 # Bluetooth
-
 /sys/devices/platform/enrc2b_rfkill/rfkill/rfkill0/state   --  u:object_r:sysfs_bluetooth_writable:s0
 /sys/devices/platform/enrc2b_rfkill/rfkill/rfkill0/type    --  u:object_r:sysfs_bluetooth_writable:s0
 /sys/devices/virtual/bluetooth/hci0/rfkill0/state          --  u:object_r:sysfs_bluetooth_writable:s0
@@ -44,14 +49,37 @@
 /sys/class/graphics/fb0/device/smartdimmer/enable        u:object_r:sysfs_writable:s0
 
 # Camera
-/dev/tegra_camera.*              u:object_r:camera_device:s0
+/dev/block/mmcblk0p2            u:object_r:camera_device:s0
+/dev/aat1271                    u:object_r:camera_device:s0
+/dev/ad5823                     u:object_r:camera_device:s0
+/dev/rawchip0                   u:object_r:camera_device:s0
+/dev/s5k3h2y                    u:object_r:camera_device:s0
+/dev/s5k6a1gx03                 u:object_r:camera_device:s0
+/dev/tegra_camera.*             u:object_r:camera_device:s0
+/data/cam_calib(/.*)?           u:object_r:camera_data_file:s0
 
 # Audio
 /dev/tegra_audio_avpchannel     u:object_r:audio_device:s0
 /dev/tegra_avpchannel           u:object_r:audio_device:s0
-/dev/ttyACM*                    u:object_r:audio_device:s0
 /dev/codec_aic3008              u:object_r:audio_device:s0
+/dev/socket/rild-audio-gsm      u:object_r:audio_device:s0
 
 # RIL
+/dev/ttyHS0                     u:object_r:radio_device:s0
+/dev/ttyACM.*                   u:object_r:radio_device:s0
 /dev/block/mmcblk0p3            u:object_r:radio_device:s0
-/rca                            u:object_r:radio_device:s0
+/dev/block/mmcblk0p6            u:object_r:radio_device:s0
+/dev/socket/rild-agps           u:object_r:rild_socket:s0
+
+/rca(/.*)?                      u:object_r:radio_data_file:s0
+/rfs(/.*)?                      u:object_r:radio_data_file:s0
+/data/modem_work(/.*)?          u:object_r:radio_data_file:s0
+/data/modem_sec(/.*)?           u:object_r:radio_data_file:s0
+
+# HDMI
+/dev/socket/displayd            u:object_r:hdmid_socket:s0
+
+# NVM
+/dev/socket/nvm-ctl             u:object_r:nvm_socket:s0
+
+

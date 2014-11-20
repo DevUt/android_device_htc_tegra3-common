@@ -1,0 +1,21 @@
+# When executing IMCdownload we transition to the vold domain
+# because it's one of the domains where we are allowed to mount
+# the usbfs.
+
+type imc_exec, exec_type, file_type;
+
+allow vold rild:fd use;
+allow vold rild:unix_stream_socket { read write };
+
+allow vold rild:fifo_file { read write };
+
+allow vold self:capability sys_module;
+
+allow vold usbfs:dir search;
+allow vold usbfs:filesystem mount;
+
+# Access to /data/modem_work
+file_type_auto_trans(vold, radio_data_file, radio_data_file)
+
+
+allow vold rild:netlink_kobject_uevent_socket { read write };

@@ -2,4 +2,23 @@
 # and revert to the base sysfs type.
 allow rild sysfs:file write;
 
-allow rild self:capability { sys_module dac_read_search dac_override };
+# IMCDownload is executed from poweron_modem_fls.sh which runs
+# in the rild domain. Automatically transition to vold domain to
+# allow mounting usbfs.
+domain_auto_trans(rild, imc_exec, vold)
+
+# libhtc_ril.so executes poweron_modem_fls.sh
+allow rild rild_exec:file execute_no_trans;
+
+# poweron_modem_fls.sh inserts modules
+allow rild self:capability sys_module;
+
+# make_sec_bin
+allow rild block_device:dir search;
+
+# ?
+allow rild self:capability dac_override;
+
+# 
+allow rild nvm_socket:sock_file { write };
+allow rild nvm_server:unix_stream_socket { connectto rw_stream_socket_perms };

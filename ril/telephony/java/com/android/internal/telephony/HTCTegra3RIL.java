@@ -19,8 +19,8 @@ package com.android.internal.telephony;
 import android.content.Context;
 
 public class HTCTegra3RIL extends RIL implements CommandsInterface {
-    public HTCTegra3RIL(Context context, int networkMode, int cdmaSubscription) {
-        super(context, networkMode, cdmaSubscription);
+    public HTCTegra3RIL(Context context, int networkMode, int cdmaSubscription, Integer instanceId) {
+        super(context, networkMode, cdmaSubscription, instanceId);
 
         mQANElements = 5;
     }

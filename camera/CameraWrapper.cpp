@@ -63,6 +63,10 @@ camera_module_t HAL_MODULE_INFO_SYM = {
     get_number_of_cameras: camera_get_number_of_cameras,
     get_camera_info: camera_get_camera_info,
     get_camera_info_extended: camera_get_camera_info_extended,
+    set_callbacks: NULL, /* remove compilation warnings */
+    get_vendor_tag_ops: NULL, /* remove compilation warnings */
+    open_legacy: NULL, /* remove compilation warnings */
+    reserved: {0}, /* remove compilation warnings */
 };
 
 typedef struct wrapper_camera_device {
@@ -86,7 +90,8 @@ static int check_vendor_module()
     if(gVendorModule)
         return 0;
 
-    rv = hw_get_module("vendor-camera", (const hw_module_t **)&gVendorModule);
+    rv = hw_get_module_by_class("camera", "vendor",
+                                (const hw_module_t **)&gVendorModule);
     if (rv)
         ALOGE("failed to open vendor camera module");
     return rv;
