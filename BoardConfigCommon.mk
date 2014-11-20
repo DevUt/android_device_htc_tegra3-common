@@ -49,6 +49,8 @@ BOARD_USES_ALSA_AUDIO := false
 # Sense 4.5 / Sense 5 audio.primary blob support. See: include/hardware/audio.h
 BOARD_HAVE_PRE_KITKAT_AUDIO_BLOB := true
 COMMON_GLOBAL_CFLAGS += -DHTC_TEGRA_AUDIO
+# Old MediaBufferGroup::acquire_buffer symbol for libwvm.so
+COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_ACQUIRE_BUFFER_SYMBOL
 
 #Camera
 USE_CAMERA_STUB := false # set to true by vendor
