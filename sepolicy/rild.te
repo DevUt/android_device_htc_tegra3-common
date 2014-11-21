@@ -13,12 +13,17 @@ allow rild rild_exec:file execute_no_trans;
 # poweron_modem_fls.sh inserts modules
 allow rild self:capability sys_module;
 
+#allow rild device:chr_file { read write getattr };
+
 # make_sec_bin
 allow rild block_device:dir search;
 
 # ?
 allow rild self:capability dac_override;
 
-# 
+# Allow creation of pseudo-terminals
+allow rild devpts:chr_file rw_file_perms;
+
+# Talk to nvm_server
 allow rild nvm_socket:sock_file { write };
 allow rild nvm_server:unix_stream_socket { connectto rw_stream_socket_perms };

@@ -13,6 +13,13 @@ on early-init
     chmod 0664 /sys/power/suspend/mode
     restorecon /sys/power/suspend/mode
 
+on post-fs
+    # Create /dev/ttyACMX0 for poweron_modem_fls.sh
+    # mknod is not allowed in the rild domain.
+    exec /system/bin/mknod /dev/ttyACMX0 c 66 0
+    chmod 770 /dev/ttyACMX0
+    restorecon /dev/ttyACMX0
+
 on post-fs-data
     # The camera calibration from the WDM partition is written to
     # /data/factory_main.bin and /data/factory_front.bin by the vendor camera
@@ -37,7 +44,20 @@ on post-fs-data
     symlink /data/cam_calib/camera_overrides_front.isp /data/camera_overrides_front.isp
 
 
-    # Create RIL related folders
+    # Create RIL related folders and set permissions
+    chmod 0775 /rca
+    chmod 0664 /rca/calib.nvm
+    chmod 0775 /rfs
+
+    chown root radio /rca
+    chown root radio /rca/calib.nvm
+    chown root radio /rfs
+
+    # requires /rca to be rw
+    restorecon /rca
+    restorecon /rca/calib.nvm
+    restorecon_recursive /rfs
+
     mkdir /data/modem_sec 0770 root radio
     mkdir /data/modem_work 0770 root radio
 
@@ -79,3 +99,6 @@ service htc-ril-daemon /system/bin/rild
 ## --- for ganlite ril
     user root
     group radio cache inet misc audio log
+
+on property:ril.start.gsm0710mux=1
+    start gsm0710mux

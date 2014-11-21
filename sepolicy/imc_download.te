@@ -17,5 +17,7 @@ allow vold usbfs:filesystem mount;
 # Access to /data/modem_work
 file_type_auto_trans(vold, radio_data_file, radio_data_file)
 
+# Access to /dev/ttyACMX0
+allow vold radio_device:chr_file rw_file_perms;
 
 allow vold rild:netlink_kobject_uevent_socket { read write };

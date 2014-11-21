@@ -10,6 +10,13 @@ type nvm_socket, file_type;
 
 init_daemon_domain(nvm_server)
 
+# Access to /data/modem/work/*nvm
+allow nvm_server radio_data_file:dir r_dir_perms;
+allow nvm_server radio_data_file:file rw_file_perms;
+
+# ?
+allow nvm_server self:capability dac_override;
+
 
 # HTCBATT
 type htcbatt, domain;
@@ -48,3 +55,5 @@ allow rilpos gps_data_file:dir rw_dir_perms;
 allow rilpos rild:unix_stream_socket { rw_stream_socket_perms connectto };
 allow rilpos rild_socket:sock_file write;
 
+# Allow creation of pseudo-terminals
+allow rilpos devpts:chr_file rw_file_perms;

@@ -2,3 +2,7 @@
 allow init self:capability {
       sys_module
 };
+
+# Allow init to create and relabel /dev/ttyACMX0
+file_type_auto_trans(init, device, radio_device)
+allow init radio_device:chr_file relabelto;
