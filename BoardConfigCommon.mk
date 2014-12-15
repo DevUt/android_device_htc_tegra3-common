@@ -58,6 +58,11 @@ USE_CAMERA_STUB := false # set to true by vendor
 # Needed for camera.vendor.tegra.so and its dependencies.
 COMMON_GLOBAL_CFLAGS += -DSK_SUPPORT_LEGACY_DECODEFILE
 
+# OMX
+# frameworks/native/libs/gui: Legacy setPosition symbol for lib libnvwinsys.so
+# which is required by the Nvidia OMX codecs.
+COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_SET_POSITION_SYMBOL
+
 # Enable WEBGL in WebKit
 ENABLE_WEBGL := true
 
