@@ -135,7 +135,6 @@ PRODUCT_PACKAGES += \
 # Other apps
 PRODUCT_PACKAGES += \
     Torch \
-    Tegra3Parts \
     com.android.future.usb.accessory
 
 # Video
