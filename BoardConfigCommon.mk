@@ -102,6 +102,13 @@ BOARD_RIL_CLASS := ../../../device/htc/tegra3-common/ril/
 # Skip droiddoc build to save build time
 BOARD_SKIP_ANDROID_DOC_BUILD := true
 
+# libgui: Add pre-MR2-compatible symbol for setPosition
+COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_SET_POSITION_SYMBOL
+# libbinder: Add legacy MemoryDealer constructor for old Nvidia OMX adaptor
+COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_MEMORY_DEALER_CONSTRUCTOR_SYMBOL
+# stagefright: Add legacy MediaBuffer::acquireBuffer symbol
+COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_ACQUIRE_BUFFER_SYMBOL
+
 # SELinux Defines
 BOARD_SEPOLICY_DIRS := \
     device/htc/tegra3-common/sepolicy
