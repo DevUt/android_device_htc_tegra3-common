@@ -77,6 +77,16 @@ on boot
     chmod 0664 /sys/class/leds/button-backlight/button_brightness
     restorecon /sys/class/leds/button-backlight/button_brightness
 
+    # Sweep2wake
+    chown root system /sys/android_touch/sweep2wake
+    chmod 0664 /sys/android_touch/sweep2wake
+    restorecon /sys/android_touch/sweep2wake
+
+    # Smartdimmer
+    chown root system /sys/devices/tegradc.0/smartdimmer/enable
+    chmod 0664 /sys/devices/tegradc.0/smartdimmer/enable
+    restorecon /sys/devices/tegradc.0/smartdimmer/enable
+
 # HTC RIL daemon. Name changed so it doesn't clash with ril-daemon defined in init.rc
 service htc-ril-daemon /system/bin/rild
     class core

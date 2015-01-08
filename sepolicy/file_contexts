@@ -46,7 +46,12 @@
 /sys/devices/virtual/bluetooth/hci0/rfkill0/type           --  u:object_r:sysfs_bluetooth_writable:s0
 
 # Hardware tunables
-/sys/class/graphics/fb0/device/smartdimmer/enable        u:object_r:sysfs_writable:s0
+/sys/devices/tegradc.0/smartdimmer/enable                u:object_r:sysfs_writable:s0
+/sys/class/timed_output/vibrator/dutycycle               u:object_r:sysfs_writable:s0
+/sys/android_touch/sweep2wake                            u:object_r:sysfs_writable:s0
+
+# Processor performance settings
+/sys/module/cpu_tegra/parameters/cpu_user_cap            u:object_r:sysfs_devices_system_cpu:s0
 
 # Camera
 /dev/block/mmcblk0p2            u:object_r:camera_device:s0
@@ -82,4 +87,5 @@
 # NVM
 /dev/socket/nvm-ctl             u:object_r:nvm_socket:s0
 
-
+# NVIDIA video/audio capture socket
+/data/data/com.nvidia.cap       u:object_r:nvcap_socket:s0

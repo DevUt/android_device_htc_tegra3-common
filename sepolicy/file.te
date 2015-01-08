@@ -1,2 +1,4 @@
 type sysfs_firmware_writable, fs_type, sysfs_type;
 type sysfs_devices_tegradc, fs_type, sysfs_type;
+
+type nvcap_socket, file_type;
