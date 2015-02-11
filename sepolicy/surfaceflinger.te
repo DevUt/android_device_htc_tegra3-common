@@ -11,4 +11,8 @@ allow surfaceflinger nvcap_socket:sock_file create_file_perms;
 # and revert to the base sysfs type.
 allow surfaceflinger sysfs:file write;
 
-allow system_app sysfs_writable:file rw_file_perms;
+#============= surfaceflinger ==============
+allow surfaceflinger sysfs_writable:file rw_file_perms;
+allow surfaceflinger system_data_file:dir write;
+allow surfaceflinger system_data_file:dir add_name;
+allow surfaceflinger system_data_file:sock_file create;

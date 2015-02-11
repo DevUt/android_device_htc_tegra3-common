@@ -17,6 +17,8 @@ allow nvm_server radio_data_file:file rw_file_perms;
 # ?
 allow nvm_server self:capability dac_override;
 
+#============= nvm_server ==============
+allow nvm_server devpts:chr_file rw_file_perms;
 
 # HTCBATT
 type htcbatt, domain;
