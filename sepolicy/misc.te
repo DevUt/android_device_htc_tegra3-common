@@ -13,8 +13,7 @@ init_daemon_domain(nvm_server)
 # Access to /data/modem/work/*nvm
 allow nvm_server radio_data_file:dir r_dir_perms;
 allow nvm_server radio_data_file:file rw_file_perms;
-
-# ?
+allow nvm_server devpts:chr_file rw_file_perms;
 allow nvm_server self:capability dac_override;
 
 

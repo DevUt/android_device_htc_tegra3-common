@@ -20,7 +20,7 @@ import org.cyanogenmod.hardware.util.FileUtils;
 
 public class VibratorHW {
 
-    private static String DUTY_CYCLE_PATH = "/sys/class/timed_output/vibrator/dutycycle";
+    private static String DUTY_CYCLE_PATH = "/sys/devices/virtual/timed_output/vibrator/dutycycle";
 
     public static boolean isSupported() {
         // Just read and write the values, if setIntensity returns true

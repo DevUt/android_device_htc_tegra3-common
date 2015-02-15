@@ -2,17 +2,6 @@ on init
     # We use our own ril-daemon service definition, see htc-ril-daemon
     stop ril-daemon
 
-on early-init
-    # Adaptive backlight (surfaceflinger Uid: system, Gid: graphics)
-    chown system system /sys/devices/tegradc.0/smartdimmer/enable
-    chmod 0664 /sys/devices/tegradc.0/smartdimmer/enable
-    restorecon /sys/devices/tegradc.0/smartdimmer/enable
-
-    # NV audio blob
-    chown media system /sys/power/suspend/mode
-    chmod 0664 /sys/power/suspend/mode
-    restorecon /sys/power/suspend/mode
-
 on post-fs
     # Create /dev/ttyACMX0 for poweron_modem_fls.sh
     # mknod is not allowed in the rild domain.
@@ -64,18 +53,33 @@ on post-fs-data
     restorecon /data/modem_sec
     restorecon /data/modem_work
 
-on boot
+
+on early-boot
+    # NV audio blob
+    chown media system /sys/power/suspend/mode
+    chmod 0664 /sys/power/suspend/mode
+
     # Hardware tunables
 
     # Vibrator intensity
-    chown root system /sys/class/timed_output/vibrator/dutycycle
+    chown system system /sys/class/timed_output/vibrator/dutycycle
     chmod 0664 /sys/class/timed_output/vibrator/dutycycle
-    restorecon /sys/class/timed_output/vibrator/dutycycle
 
     # Button backlight
-    chown root system /sys/class/leds/button-backlight/button_brightness
+    chown system system /sys/class/leds/button-backlight/button_brightness
     chmod 0664 /sys/class/leds/button-backlight/button_brightness
-    restorecon /sys/class/leds/button-backlight/button_brightness
+
+    # Sweep2wake
+    chown system system /sys/android_touch/sweep2wake
+    chmod 0664 /sys/android_touch/sweep2wake
+
+    # DoubleTap2wake
+    chown system system /sys/android_touch/doubletap2wake
+    chmod 0664 /sys/android_touch/doubletap2wake
+
+    # Adaptive backlight (surfaceflinger Uid: system, Gid: graphics)
+    chown system system /sys/devices/tegradc.0/smartdimmer/enable
+    chmod 0664 /sys/devices/tegradc.0/smartdimmer/enable
 
 # pollyd (respect & thanks to Adrian Ulrich <adrian@blinkenlights.ch> )
 service pollyd /system/bin/pollyd
