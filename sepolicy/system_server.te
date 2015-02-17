@@ -12,3 +12,6 @@ allow system_server gps_data_file:file rw_file_perms;
 
 #??
 allow system_server fuse:dir search;
+
+# omni ============= system_server ==============
+allow system_server apk_data_file:lnk_file unlink;
