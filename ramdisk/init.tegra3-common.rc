@@ -69,6 +69,9 @@ on post-fs-data
     restorecon /data/modem_sec
     restorecon /data/modem_work
 
+    # Set indication (checked by vold) that we have finished this action
+    setprop vold.post_fs_data_done 1
+
 on boot
     # NV audio blob
     chown media system /sys/power/suspend/mode
@@ -103,7 +106,7 @@ service pollyd /system/bin/pollyd
 
 # HTC RIL daemon. Name changed so it doesn't clash with ril-daemon defined in init.rc
 service htc-ril-daemon /system/bin/rild
-    class core
+    class main
     socket rild stream 660 root radio
     socket rild-debug stream 660 radio system
     socket rild-audio-gsm stream 660 radio audio
