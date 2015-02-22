@@ -2,12 +2,31 @@ on init
     # We use our own ril-daemon service definition, see htc-ril-daemon
     stop ril-daemon
 
+on fs
+    mkdir /rca 0775 root radio
+    mkdir /rfs 0755 radio radio
+    mkdir /devlog 0700 root root
+
 on post-fs
     # Create /dev/ttyACMX0 for poweron_modem_fls.sh
     # mknod is not allowed in the rild domain.
     exec /system/bin/mknod /dev/ttyACMX0 c 66 0
     chmod 770 /dev/ttyACMX0
     restorecon /dev/ttyACMX0
+
+    # Set permissions after mount
+    chmod 0775 /rca
+    chmod 0664 /rca/calib.nvm
+    chmod 0775 /rfs
+
+    chown root radio /rca
+    chown root radio /rca/calib.nvm
+    chown root radio /rfs
+
+    # requires /rca to be rw
+    restorecon /rca
+    restorecon /rca/calib.nvm
+    restorecon_recursive /rfs
 
 on post-fs-data
     # The camera calibration from the WDM partition is written to
@@ -32,29 +51,25 @@ on post-fs-data
     symlink /data/cam_calib/calibration_front.bin /data/calibration_front.bin
     symlink /data/cam_calib/camera_overrides_front.isp /data/camera_overrides_front.isp
 
-
-    # Create RIL related folders and set permissions
-    chmod 0775 /rca
-    chmod 0664 /rca/calib.nvm
-    chmod 0775 /rfs
-
-    chown root radio /rca
-    chown root radio /rca/calib.nvm
-    chown root radio /rfs
-
-    # requires /rca to be rw
-    restorecon /rca
-    restorecon /rca/calib.nvm
-    restorecon_recursive /rfs
+    # Modem
+    mkdir /data/rfs
+    mkdir /data/rfs/data
+    mkdir /data/rfs/data/modem
+    mkdir /data/rfs/data/debug
+    chown radio system /data/rfs/data
+    chown radio system /data/rfs/data/modem
+    chown radio system /data/rfs/data/debug
 
     mkdir /data/modem_sec 0770 root radio
     mkdir /data/modem_work 0770 root radio
 
+    # libnvmm_camera.so
+    mkdir /data/nvcam 0775 system system
+
     restorecon /data/modem_sec
     restorecon /data/modem_work
 
-
-on early-boot
+on boot
     # NV audio blob
     chown media system /sys/power/suspend/mode
     chmod 0664 /sys/power/suspend/mode
