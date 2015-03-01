@@ -61,6 +61,11 @@ COMMON_GLOBAL_CFLAGS += -DSK_SUPPORT_LEGACY_SETCONFIG
 
 USE_DEVICE_SPECIFIC_CAMERA := true
 
+# OMX
+# frameworks/native/libs/gui: Legacy setPosition symbol for lib libnvwinsys.so
+# which is required by the Nvidia OMX codecs.
+COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_SET_POSITION_SYMBOL
+
 # Enable WEBGL in WebKit
 ENABLE_WEBGL := true
 
@@ -73,6 +78,9 @@ BOARD_EGL_WORKAROUND_BUG_10194508 := true
 
 # No support for the sync framework
 TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
+
+# libbinder: Add legacy MemoryDealer constructor for old Nvidia OMX adaptor
+COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_MEMORY_DEALER_CONSTRUCTOR_SYMBOL
 
 # BT
 BOARD_HAVE_BLUETOOTH := true
@@ -96,13 +104,6 @@ BOARD_RIL_CLASS := ../../../device/htc/tegra3-common/ril/
 
 # Skip droiddoc build to save build time
 BOARD_SKIP_ANDROID_DOC_BUILD := true
-
-# libgui: Add pre-MR2-compatible symbol for setPosition
-COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_SET_POSITION_SYMBOL
-# libbinder: Add legacy MemoryDealer constructor for old Nvidia OMX adaptor
-COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_MEMORY_DEALER_CONSTRUCTOR_SYMBOL
-# stagefright: Add legacy MediaBuffer::acquireBuffer symbol
-COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_ACQUIRE_BUFFER_SYMBOL
 
 # SELinux Defines
 BOARD_SEPOLICY_DIRS := \

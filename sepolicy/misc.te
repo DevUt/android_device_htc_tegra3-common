@@ -2,6 +2,7 @@
 type rfkill_device, dev_type;
 allow wpa rfkill_device:chr_file rw_file_perms;
 
+
 # NVM Server
 type nvm_server, domain;
 type nvm_server_exec, exec_type, file_type;
@@ -12,12 +13,9 @@ init_daemon_domain(nvm_server)
 # Access to /data/modem/work/*nvm
 allow nvm_server radio_data_file:dir r_dir_perms;
 allow nvm_server radio_data_file:file rw_file_perms;
-
-# ?
+allow nvm_server devpts:chr_file rw_file_perms;
 allow nvm_server self:capability dac_override;
 
-#============= nvm_server ==============
-allow nvm_server devpts:chr_file rw_file_perms;
 
 # HTCBATT
 type htcbatt, domain;
@@ -43,6 +41,7 @@ init_daemon_domain(hdmid)
 allow hdmid self:capability net_admin;
 allow hdmid init:unix_stream_socket rw_stream_socket_perms;
 allow hdmid self:netlink_kobject_uevent_socket create_socket_perms;
+
 
 # RILPOS
 type rilpos, domain;

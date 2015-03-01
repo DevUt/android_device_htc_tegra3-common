@@ -10,5 +10,11 @@ allow init radio_device:chr_file relabelto;
 #============= init ==============
 allow init app_data_file:dir { relabelfrom read getattr };
 allow init app_data_file:file { relabelfrom getattr };
+allow init app_data_file:lnk_file getattr;
+allow init fuse:dir mounton;
+allow init security_file:dir relabelfrom;
+allow init shell_data_file:dir relabelfrom;
+allow init shell_data_file:lnk_file getattr;
+
 # NOT ALLOWED # 
 # allow init system_file:file relabelfrom;
