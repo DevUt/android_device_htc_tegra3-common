@@ -49,8 +49,6 @@ BOARD_USES_ALSA_AUDIO := false
 # Sense 4.5 / Sense 5 audio.primary blob support. See: include/hardware/audio.h
 BOARD_HAVE_PRE_KITKAT_AUDIO_BLOB := true
 COMMON_GLOBAL_CFLAGS += -DHTC_TEGRA_AUDIO
-# Old MediaBufferGroup::acquire_buffer symbol for libwvm.so
-COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_ACQUIRE_BUFFER_SYMBOL
 
 #Camera
 USE_CAMERA_STUB := false # set to true by vendor
@@ -110,6 +108,7 @@ COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_SET_POSITION_SYMBOL
 # libbinder: Add legacy MemoryDealer constructor for old Nvidia OMX adaptor
 COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_MEMORY_DEALER_CONSTRUCTOR_SYMBOL
 # stagefright: Add legacy MediaBuffer::acquireBuffer symbol
+# Old MediaBufferGroup::acquire_buffer symbol for libwvm.so
 COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_ACQUIRE_BUFFER_SYMBOL
 
 # SELinux Defines
