@@ -98,6 +98,10 @@ on boot
     chown system system /sys/devices/tegradc.0/smartdimmer/enable
     chmod 0664 /sys/devices/tegradc.0/smartdimmer/enable
 
+    # CalibrationControl
+    chown system system /sys/android_touch/calibration_control
+    chmod 0664 /sys/android_touch/calibration_control
+
 # pollyd (respect & thanks to Adrian Ulrich <adrian@blinkenlights.ch> )
 service pollyd /system/bin/pollyd
     class late_start
