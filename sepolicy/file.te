@@ -3,3 +3,4 @@ type sysfs_devices_tegradc, fs_type, sysfs_type;
 
 # CMHW Tunables
 type sysfs_wakegestures, fs_type, sysfs_type;
+type sysfs_hwtunables, fs_type, sysfs_type;

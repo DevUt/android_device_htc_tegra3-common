@@ -50,6 +50,7 @@
 /sys/devices/virtual/timed_output/vibrator/dutycycle     u:object_r:sysfs_writable:s0
 /sys/android_touch/doubletap2wake                        u:object_r:sysfs_wakegestures:s0
 /sys/android_touch/sweep2wake                            u:object_r:sysfs_wakegestures:s0
+/sys/android_touch/calibration_control                   u:object_r:sysfs_hwtunables:s0
 
 # Processor performance settings
 /sys/module/cpu_tegra/parameters/cpu_user_cap            u:object_r:sysfs_devices_system_cpu:s0
