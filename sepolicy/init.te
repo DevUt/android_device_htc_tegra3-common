@@ -1,8 +1,27 @@
 # We load modules in our init.rc scripts
-allow init self:capability {
-      sys_module
-};
+allow init self:capability { sys_module };
 
 # Allow init to create and relabel /dev/ttyACMX0
 file_type_auto_trans(init, device, radio_device)
 allow init radio_device:chr_file relabelto;
+
+#============= init ==============
+allow init app_data_file:dir { relabelfrom read getattr };
+allow init app_data_file:file { relabelfrom getattr };
+allow init app_data_file:lnk_file getattr;
+allow init fuse:dir mounton;
+allow init security_file:dir relabelfrom;
+allow init shell_data_file:dir relabelfrom;
+allow init shell_data_file:lnk_file getattr;
+
+# NOT ALLOWED # 
+# allow init        system_file:file relabelfrom;
+# allow init keystore_data_file:dir  relabelfrom;
+# allow init keystore_data_file:file relabelfrom;
+# allow init property_data_file:dir  relabelfrom;
+# allow init property_data_file:file relabelfrom;
+# allow init            su_exec:file relabelfrom;
+# allow init        system_file:dir  relabelfrom;
+# allow init        system_file:file relabelfrom;
+# allow init        system_file:lnk_file relabelfrom;
+# allow init      untrusted_app:process signal;

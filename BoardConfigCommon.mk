@@ -59,10 +59,6 @@ COMMON_GLOBAL_CFLAGS += -DSK_SUPPORT_LEGACY_SETCONFIG
 
 USE_DEVICE_SPECIFIC_CAMERA := true
 
-# OMX
-# frameworks/native/libs/gui: Legacy setPosition symbol for lib libnvwinsys.so
-# which is required by the Nvidia OMX codecs.
-COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_SET_POSITION_SYMBOL
 
 # Enable WEBGL in WebKit
 ENABLE_WEBGL := true
@@ -76,9 +72,6 @@ BOARD_EGL_WORKAROUND_BUG_10194508 := true
 
 # No support for the sync framework
 TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
-
-# Needed by libnvcap_video.so
-COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_MEMORY_DEALER_CONSTRUCTOR_SYMBOL
 
 # BT
 BOARD_HAVE_BLUETOOTH := true
@@ -118,22 +111,23 @@ BOARD_SEPOLICY_DIRS := \
 BOARD_SEPOLICY_UNION += \
         file_contexts \
         genfs_contexts \
-	property_contexts \
+        property_contexts \
         bluetooth.te \
         btmacreader.te \
         device.te \
         domain.te \
         drmserver.te \
-	imc_download.te \
-	init.te \
+        imc_download.te \
+        init.te \
         init_shell.te \
         file.te \
         gpsd.te \
         keystore.te \
         lmkd.te \
         mediaserver.te \
-	misc.te \
+        misc.te \
         rild.te \
+        shell.te \
         surfaceflinger.te \
         system_app.te \
         system_server.te \

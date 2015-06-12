@@ -1,4 +1,3 @@
-ifeq ($(TARGET_BOARD_PLATFORM),tegra)
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
@@ -19,4 +18,3 @@ LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SHARED_LIBRARY)
 #include $(BUILD_HEAPTRACKED_SHARED_LIBRARY)
-endif

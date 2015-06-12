@@ -56,3 +56,12 @@ allow rilpos rild_socket:sock_file write;
 
 # Allow creation of pseudo-terminals
 allow rilpos devpts:chr_file rw_file_perms;
+
+#============= adbd ==============
+allow adbd auditd_log:dir getattr;
+
+#============= untrusted_app ==============
+# allow untrusted_app auditd_log:dir getattr;
+allow untrusted_app radio_data_file:dir getattr;
+# allow untrusted_app shell:process sigkill;
+allow untrusted_app unlabeled:dir getattr;
