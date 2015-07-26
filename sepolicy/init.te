@@ -1,7 +1,5 @@
 # We load modules in our init.rc scripts
-allow init self:capability {
-      sys_module
-};
+allow init self:capability { sys_module };
 
 # Allow init to create and relabel /dev/ttyACMX0
 file_type_auto_trans(init, device, radio_device)
