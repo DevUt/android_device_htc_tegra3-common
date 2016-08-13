@@ -1,7 +1,5 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
- * Copyright (c) 2011-2014, The Linux Foundation. All rights reserved.
- * Not a Contribution.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,7 +60,11 @@ __BEGIN_DECLS
 #define AUDIO_DEVICE_API_VERSION_3_0 HARDWARE_DEVICE_API_VERSION(3, 0)
 #define AUDIO_DEVICE_API_VERSION_CURRENT AUDIO_DEVICE_API_VERSION_3_0
 /* Minimal audio HAL version supported by the audio framework */
+#ifndef MR0_AUDIO_BLOB
 #define AUDIO_DEVICE_API_VERSION_MIN AUDIO_DEVICE_API_VERSION_2_0
+#else
+#define AUDIO_DEVICE_API_VERSION_MIN AUDIO_DEVICE_API_VERSION_0_0
+#endif
 
 /**
  * List of known audio HAL modules. This is the base name of the audio HAL
@@ -122,6 +124,9 @@ __BEGIN_DECLS
  * or no HW sync is available. */
 #define AUDIO_PARAMETER_HW_AV_SYNC "hw_av_sync"
 
+/* Device state*/
+#define AUDIO_PARAMETER_KEY_DEV_SHUTDOWN "dev_shutdown"
+
 /**
  *  audio stream parameters
  */
@@ -149,30 +154,6 @@ __BEGIN_DECLS
 /* Set the HW synchronization source for an output stream. */
 #define AUDIO_PARAMETER_STREAM_HW_AV_SYNC "hw_av_sync"
 
-/* Query handle fm parameter*/
-#define AUDIO_PARAMETER_KEY_HANDLE_FM "handle_fm"
-
-/* Query voip flag */
-#define AUDIO_PARAMETER_KEY_VOIP_CHECK "voip_flag"
-
-/* Query Fluence type */
-#define AUDIO_PARAMETER_KEY_FLUENCE_TYPE "fluence"
-
-/* Query if surround sound recording is supported */
-#define AUDIO_PARAMETER_KEY_SSR "ssr"
-
-/* Query if a2dp  is supported */
-#define AUDIO_PARAMETER_KEY_HANDLE_A2DP_DEVICE "isA2dpDeviceSupported"
-
-/* Query ADSP Status */
-#define AUDIO_PARAMETER_KEY_ADSP_STATUS "ADSP_STATUS"
-
-/* Query if Proxy can be Opend */
-#define AUDIO_CAN_OPEN_PROXY "can_open_proxy"
-
-/* Query fm volume */
-#define AUDIO_PARAMETER_KEY_FM_VOLUME "fm_volume"
-
 /**
  * audio codec parameters
  */
@@ -189,12 +170,6 @@ __BEGIN_DECLS
 #define AUDIO_OFFLOAD_CODEC_DOWN_SAMPLING  "music_offload_down_sampling"
 #define AUDIO_OFFLOAD_CODEC_DELAY_SAMPLES  "delay_samples"
 #define AUDIO_OFFLOAD_CODEC_PADDING_SAMPLES  "padding_samples"
-
-/* Query if surround sound recording is supported */
-#define AUDIO_PARAMETER_KEY_SSR "ssr"
-
-/* Query ADSP Status */
-#define AUDIO_PARAMETER_KEY_ADSP_STATUS "ADSP_STATUS"
 
 /**************************************/
 
@@ -409,7 +384,7 @@ struct audio_stream_out {
      *
      * Implementation of this function is mandatory for offloaded playback.
      */
-    int (*flush)(struct audio_stream_out* stream);
+   int (*flush)(struct audio_stream_out* stream);
 
     /**
      * Return a recent count of the number of audio frames presented to an external observer.
@@ -477,8 +452,7 @@ static inline size_t audio_stream_frame_size(const struct audio_stream *s)
     size_t chan_samp_sz;
     audio_format_t format = s->get_format(s);
 
-    if (audio_is_linear_pcm(format) &&
-            format != AUDIO_FORMAT_PCM_8_24_BIT) {
+    if (audio_is_linear_pcm(format)) {
         chan_samp_sz = audio_bytes_per_sample(format);
         return popcount(s->get_channels(s)) * chan_samp_sz;
     }
@@ -575,13 +549,6 @@ struct audio_hw_device {
      * this method may leave it set to NULL.
      */
     int (*get_master_volume)(struct audio_hw_device *dev, float *volume);
-
-#ifdef HTC_TEGRA_AUDIO
-    /**
-     * Unknown function that is NULL anyway. HTC what are you doing?
-     */
-    void (*unknown_func)(void);
-#endif
 
     /**
      * set_mode is called when the audio mode changes. AUDIO_MODE_NORMAL mode
@@ -731,18 +698,8 @@ static inline int audio_hw_device_close(struct audio_hw_device* device)
     return device->common.close(&device->common);
 }
 
-#ifdef QCOM_DIRECTTRACK
-#ifdef __cplusplus
-/**
- *Observer class to post the Events from HAL to Flinger
-*/
-class AudioEventObserver {
-public:
-    virtual ~AudioEventObserver() {}
-    virtual void postEOS(int64_t delayUs) = 0;
-};
-#endif
-#endif
+
 __END_DECLS
 
 #endif  // ANDROID_AUDIO_INTERFACE_H
+
