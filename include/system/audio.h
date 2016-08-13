@@ -1556,4 +1556,14 @@ static inline bool audio_device_is_digital(audio_devices_t device) {
 
 __END_DECLS
 
-#endif  // ANDROID_AUDIO_CORE_H
+#endif 
+
+static inline bool audio_is_offload_pcm(audio_format_t format)
+ {
+ #ifdef QCOM_HARDWARE
+     return ((format & AUDIO_FORMAT_MAIN_MASK) == AUDIO_FORMAT_PCM_OFFLOAD);
+ #endif
+     return false;
+ }
+
+// ANDROID_AUDIO_CORE_H
