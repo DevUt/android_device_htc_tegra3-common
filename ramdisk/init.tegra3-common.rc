@@ -1,4 +1,10 @@
+on early-init 
+    
+   export LD_SHIM_LIBS /system/lib/liblog.so|libc_htc_symbols.so:/system/lib/hw/gralloc.tegra.so|libc_htc_symbols.so:/system/lib/hw/hwcomposer.tegra.so|libc_htc_symbols.so
+
+
 on init
+
     # We use our own ril-daemon service definition, see htc-ril-daemon
     stop ril-daemon
 
