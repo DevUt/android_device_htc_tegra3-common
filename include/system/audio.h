@@ -1584,4 +1584,3 @@ static inline bool audio_device_is_digital(audio_devices_t device) {
 __END_DECLS
 
 #endif  // ANDROID_AUDIO_CORE_H
-
