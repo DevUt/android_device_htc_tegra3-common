@@ -135,6 +135,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libstagefrighthw
 
+# HTC LOG 
+PRODUCT_PACKAGES += \
+    libc_htc_symbols
+
 # Wifi
 PRODUCT_PACKAGES += \
     iw \
