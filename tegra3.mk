@@ -135,9 +135,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libstagefrighthw
 
-# HTC LOG 
+# HTC LOG
 PRODUCT_PACKAGES += \
     libc_htc_symbols
+
+#Camera shims
+PRODUCT_PACKAGES += \
+    libshim_cam
 
 # Wifi
 PRODUCT_PACKAGES += \
