@@ -2,11 +2,9 @@
 
 on init
         #cam shim
-       export LD_PRELOAD /system/lib/libshim_cam.so
-       export LD_SHIM_LIBS /system/lib/hw/camera.vendor.tegra.so|libshim_cam.so
-       #log shim
-       export LD_PRELOAD /system/lib/libc_htc_symbols.so
-       export LD_SHIM_LIBS /system/lib/liblog.so|libc_htc_symbols.so:/system/lib/hw/gralloc.tegra.so|libc_htc_symbols.so:/system/lib/hw/hwcomposer.tegra.so|libc_htc_symbols.so
+       export LD_PRELOAD /system/lib/libshim_cam.so /system/lib/libc_htc_symbols.so
+      
+       export LD_SHIM_LIBS /system/lib/liblog.so|libc_htc_symbols.so:/system/lib/hw/gralloc.tegra.so|libc_htc_symbols.so:/system/lib/hw/hwcomposer.tegra.so|libc_htc_symbols.so:/system/lib/hw/camera.vendor.tegra.so|libshim_cam.so
 
 
     # We use our own ril-daemon service definition, see htc-ril-daemon
