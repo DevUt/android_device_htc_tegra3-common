@@ -141,7 +141,8 @@ PRODUCT_PACKAGES += \
 
 #Camera shims
 PRODUCT_PACKAGES += \
-    libshim_cam
+    libshim_cam	\
+    libshim_skia	
 
 # Wifi
 PRODUCT_PACKAGES += \
