@@ -1491,10 +1491,8 @@ static inline bool audio_is_linear_pcm(audio_format_t format)
 
 static inline bool audio_is_offload_pcm(audio_format_t format)
 {
-#ifdef QCOM_HARDWARE
-    return ((format & AUDIO_FORMAT_MAIN_MASK) == AUDIO_FORMAT_PCM_OFFLOAD);
-#endif
-    return false;
+	// Make gcc Happy 
+	(void)(format);
 }
 
 static inline size_t audio_bytes_per_sample(audio_format_t format)
