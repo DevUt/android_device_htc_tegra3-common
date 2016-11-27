@@ -873,19 +873,19 @@ typedef struct {
 #define AUDIO_OFFLOAD_INFO_VERSION_CURRENT AUDIO_OFFLOAD_INFO_VERSION_0_1
 
 static const audio_offload_info_t AUDIO_INFO_INITIALIZER = {
-    version: AUDIO_OFFLOAD_INFO_VERSION_CURRENT,
-    size: sizeof(audio_offload_info_t),
-    sample_rate: 0,
-    channel_mask: 0,
-    format: AUDIO_FORMAT_DEFAULT,
-    stream_type: AUDIO_STREAM_VOICE_CALL,
-    bit_rate: 0,
-    duration_us: 0,
-    has_video: false,
-    is_streaming: false,
-    bit_width: 16,
-    offload_buffer_size: 0,
-    usage: AUDIO_USAGE_UNKNOWN,
+    .version = AUDIO_OFFLOAD_INFO_VERSION_CURRENT,
+    .size = sizeof(audio_offload_info_t),
+    .sample_rate = 0,
+    .channel_mask = 0,
+    .format = AUDIO_FORMAT_DEFAULT,
+    .stream_type = AUDIO_STREAM_VOICE_CALL,
+    .bit_rate = 0,
+    .duration_us = 0,
+    .has_video = false,
+    .is_streaming = false,
+    .bit_width = 16,
+    .offload_buffer_size = 0,
+    .usage = AUDIO_USAGE_UNKNOWN,
 };
 
 /* common audio stream configuration parameters
@@ -902,24 +902,23 @@ struct audio_config {
 typedef struct audio_config audio_config_t;
 
 static const audio_config_t AUDIO_CONFIG_INITIALIZER = {
-    sample_rate: 0,
-    channel_mask: AUDIO_CHANNEL_NONE,
-    format: AUDIO_FORMAT_DEFAULT,
-    offload_info: {
-        version: AUDIO_OFFLOAD_INFO_VERSION_CURRENT,
-        size: sizeof(audio_offload_info_t),
-        sample_rate: 0,
-        channel_mask: 0,
-        format: AUDIO_FORMAT_DEFAULT,
-        stream_type: AUDIO_STREAM_VOICE_CALL,
-        bit_rate: 0,
-        duration_us: 0,
-        has_video: false,
-        is_streaming: false
+    .sample_rate = 0,
+    .channel_mask = AUDIO_CHANNEL_NONE,
+    .format = AUDIO_FORMAT_DEFAULT,
+    .offload_info = {
+        .version = AUDIO_OFFLOAD_INFO_VERSION_CURRENT,
+        .size = sizeof(audio_offload_info_t),
+        .sample_rate = 0,
+        .channel_mask = 0,
+        .format = AUDIO_FORMAT_DEFAULT,
+        .stream_type = AUDIO_STREAM_VOICE_CALL,
+        .bit_rate = 0,
+        .duration_us = 0,
+        .has_video = false,
+        .is_streaming = false
     },
-    frame_count: 0,
+    .frame_count = 0,
 };
-
 
 /* audio hw module handle functions or structures referencing a module */
 typedef int audio_module_handle_t;
