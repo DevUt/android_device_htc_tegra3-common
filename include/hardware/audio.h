@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (c) 2011-2014, The Linux Foundation. All rights reserved.
+ * Not a Contribution.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,11 +62,7 @@ __BEGIN_DECLS
 #define AUDIO_DEVICE_API_VERSION_3_0 HARDWARE_DEVICE_API_VERSION(3, 0)
 #define AUDIO_DEVICE_API_VERSION_CURRENT AUDIO_DEVICE_API_VERSION_3_0
 /* Minimal audio HAL version supported by the audio framework */
-#ifndef MR0_AUDIO_BLOB
 #define AUDIO_DEVICE_API_VERSION_MIN AUDIO_DEVICE_API_VERSION_2_0
-#else
-#define AUDIO_DEVICE_API_VERSION_MIN AUDIO_DEVICE_API_VERSION_0_0
-#endif
 
 /**
  * List of known audio HAL modules. This is the base name of the audio HAL
@@ -550,6 +548,13 @@ struct audio_hw_device {
      */
     int (*get_master_volume)(struct audio_hw_device *dev, float *volume);
 
+#ifdef HTC_TEGRA_AUDIO
+    /**
+     * Unknown function that is NULL anyway. HTC what are you doing?
+     */
+    void (*unknown_func)(void);
+#endif
+
     /**
      * set_mode is called when the audio mode changes. AUDIO_MODE_NORMAL mode
      * is for standard audio playback, AUDIO_MODE_RINGTONE when a ringtone is
@@ -702,4 +707,3 @@ static inline int audio_hw_device_close(struct audio_hw_device* device)
 __END_DECLS
 
 #endif  // ANDROID_AUDIO_INTERFACE_H
-

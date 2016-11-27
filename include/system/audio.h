@@ -36,7 +36,6 @@ __BEGIN_DECLS
 #define AUDIO_REMOTE_SUBMIX_DEVICE_ADDRESS "0"
 
 /* AudioFlinger and AudioPolicy services use I/O handles to identify audio sources and sinks */
-
 typedef int audio_io_handle_t;
 #define AUDIO_IO_HANDLE_NONE    0
 
@@ -644,11 +643,7 @@ typedef enum {
 enum {
     AUDIO_DEVICE_NONE                          = 0x0,
     /* reserved bits */
-#if defined(ICS_AUDIO_BLOB) || defined(MR0_AUDIO_BLOB)
-    AUDIO_DEVICE_BIT_IN                        = 0x10000,
-#else
     AUDIO_DEVICE_BIT_IN                        = 0x80000000,
-#endif
     AUDIO_DEVICE_BIT_DEFAULT                   = 0x40000000,
     /* output devices */
     AUDIO_DEVICE_OUT_EARPIECE                  = 0x1,
@@ -680,7 +675,12 @@ enum {
     /* S/PDIF out */
     AUDIO_DEVICE_OUT_SPDIF                     = 0x80000,
     /* FM transmitter out */
+#ifndef HTC_TEGRA_AUDIO
     AUDIO_DEVICE_OUT_FM                        = 0x100000,
+#else
+    AUDIO_DEVICE_OUT_FM                        = 0x10000,
+    AUDIO_DEVICE_OUT_FM_TX                     = 0x20000,
+#endif
     /* Line out for av devices */
     AUDIO_DEVICE_OUT_AUX_LINE                  = 0x200000,
     /* limited-output speaker device for acoustic safety */
@@ -704,6 +704,7 @@ enum {
                                  AUDIO_DEVICE_OUT_USB_ACCESSORY |
                                  AUDIO_DEVICE_OUT_USB_DEVICE |
                                  AUDIO_DEVICE_OUT_REMOTE_SUBMIX |
+#ifndef HTC_TEGRA_AUDIO
                                  AUDIO_DEVICE_OUT_TELEPHONY_TX |
                                  AUDIO_DEVICE_OUT_LINE |
                                  AUDIO_DEVICE_OUT_HDMI_ARC |
@@ -712,6 +713,12 @@ enum {
                                  AUDIO_DEVICE_OUT_AUX_LINE |
                                  AUDIO_DEVICE_OUT_SPEAKER_SAFE |
                                  AUDIO_DEVICE_OUT_IP |
+#else
+                                 AUDIO_DEVICE_OUT_IP |
+                                 AUDIO_DEVICE_OUT_FM |
+                                 AUDIO_DEVICE_OUT_FM_TX |
+#endif
+                                 AUDIO_DEVICE_OUT_FM_TX |
                                  AUDIO_DEVICE_OUT_PROXY |
                                  AUDIO_DEVICE_OUT_DEFAULT),
     AUDIO_DEVICE_OUT_ALL_A2DP = (AUDIO_DEVICE_OUT_BLUETOOTH_A2DP |
@@ -722,53 +729,23 @@ enum {
                                  AUDIO_DEVICE_OUT_BLUETOOTH_SCO_CARKIT),
     AUDIO_DEVICE_OUT_ALL_USB  = (AUDIO_DEVICE_OUT_USB_ACCESSORY |
                                  AUDIO_DEVICE_OUT_USB_DEVICE),
+
     /* input devices */
-#ifdef MR0_AUDIO_BLOB
-    AUDIO_DEVICE_IN_COMMUNICATION         = AUDIO_DEVICE_BIT_IN * 0x1,
-    AUDIO_DEVICE_IN_AMBIENT               = AUDIO_DEVICE_BIT_IN * 0x2,
-    AUDIO_DEVICE_IN_BUILTIN_MIC           = AUDIO_DEVICE_BIT_IN * 0x4,
-    AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET = AUDIO_DEVICE_BIT_IN * 0x8,
-    AUDIO_DEVICE_IN_WIRED_HEADSET         = AUDIO_DEVICE_BIT_IN * 0x10,
-    AUDIO_DEVICE_IN_AUX_DIGITAL           = AUDIO_DEVICE_BIT_IN * 0x20,
-    AUDIO_DEVICE_IN_HDMI                  = AUDIO_DEVICE_IN_AUX_DIGITAL,
-    /* Telephony voice RX path */
-    AUDIO_DEVICE_IN_VOICE_CALL            = AUDIO_DEVICE_BIT_IN * 0x40,
-    AUDIO_DEVICE_IN_TELEPHONY_RX          = AUDIO_DEVICE_IN_VOICE_CALL,
-    AUDIO_DEVICE_IN_BACK_MIC              = AUDIO_DEVICE_BIT_IN * 0x80,
-    AUDIO_DEVICE_IN_REMOTE_SUBMIX         = AUDIO_DEVICE_BIT_IN * 0x100,
-    AUDIO_DEVICE_IN_ANLG_DOCK_HEADSET     = AUDIO_DEVICE_BIT_IN * 0x200,
-    AUDIO_DEVICE_IN_DGTL_DOCK_HEADSET     = AUDIO_DEVICE_BIT_IN * 0x400,
-    AUDIO_DEVICE_IN_USB_ACCESSORY         = AUDIO_DEVICE_BIT_IN * 0x800,
-    AUDIO_DEVICE_IN_USB_DEVICE            = AUDIO_DEVICE_BIT_IN * 0x1000,
-    /* FM tuner input */
-    AUDIO_DEVICE_IN_FM_TUNER              = AUDIO_DEVICE_BIT_IN * 0x2000,
-    /* TV tuner input */
-    AUDIO_DEVICE_IN_TV_TUNER              = AUDIO_DEVICE_BIT_IN * 0x4000,
-    /* Analog jack with line impedance detected */
-    AUDIO_DEVICE_IN_LINE                  = AUDIO_DEVICE_BIT_IN | 0x8000,
-    /* S/PDIF in */
-    AUDIO_DEVICE_IN_SPDIF                 = AUDIO_DEVICE_BIT_IN | 0x10000,
-    AUDIO_DEVICE_IN_BLUETOOTH_A2DP        = AUDIO_DEVICE_BIT_IN | 0x20000,
-    AUDIO_DEVICE_IN_LOOPBACK              = AUDIO_DEVICE_BIT_IN | 0x40000,
-    AUDIO_DEVICE_IN_IP                    = AUDIO_DEVICE_BIT_IN | 0x80000,
-    AUDIO_DEVICE_IN_PROXY                 = AUDIO_DEVICE_BIT_IN | 0x1000000,
-    AUDIO_DEVICE_IN_DEFAULT               = AUDIO_DEVICE_IN_BUILTIN_MIC,
-#else
     AUDIO_DEVICE_IN_COMMUNICATION         = AUDIO_DEVICE_BIT_IN | 0x1,
     AUDIO_DEVICE_IN_AMBIENT               = AUDIO_DEVICE_BIT_IN | 0x2,
     AUDIO_DEVICE_IN_BUILTIN_MIC           = AUDIO_DEVICE_BIT_IN | 0x4,
-    AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET = AUDIO_DEVICE_BIT_IN | 0x8,
-    AUDIO_DEVICE_IN_WIRED_HEADSET         = AUDIO_DEVICE_BIT_IN | 0x10,
-    AUDIO_DEVICE_IN_AUX_DIGITAL           = AUDIO_DEVICE_BIT_IN | 0x20,
+    AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET = AUDIO_DEVICE_BIT_IN | 0x20,
+    AUDIO_DEVICE_IN_WIRED_HEADSET         = AUDIO_DEVICE_BIT_IN | 0x40,
+    AUDIO_DEVICE_IN_AUX_DIGITAL           = AUDIO_DEVICE_BIT_IN | 0x80,
     AUDIO_DEVICE_IN_HDMI                  = AUDIO_DEVICE_IN_AUX_DIGITAL,
     /* Telephony voice RX path */
-    AUDIO_DEVICE_IN_VOICE_CALL            = AUDIO_DEVICE_BIT_IN | 0x40,
+    AUDIO_DEVICE_IN_VOICE_CALL            = AUDIO_DEVICE_BIT_IN | 0x100,
     AUDIO_DEVICE_IN_TELEPHONY_RX          = AUDIO_DEVICE_IN_VOICE_CALL,
-    AUDIO_DEVICE_IN_BACK_MIC              = AUDIO_DEVICE_BIT_IN | 0x80,
-    AUDIO_DEVICE_IN_REMOTE_SUBMIX         = AUDIO_DEVICE_BIT_IN | 0x100,
-    AUDIO_DEVICE_IN_ANLG_DOCK_HEADSET     = AUDIO_DEVICE_BIT_IN | 0x200,
-    AUDIO_DEVICE_IN_DGTL_DOCK_HEADSET     = AUDIO_DEVICE_BIT_IN | 0x400,
-    AUDIO_DEVICE_IN_USB_ACCESSORY         = AUDIO_DEVICE_BIT_IN | 0x800,
+    AUDIO_DEVICE_IN_BACK_MIC              = AUDIO_DEVICE_BIT_IN | 0x08,
+    AUDIO_DEVICE_IN_REMOTE_SUBMIX         = AUDIO_DEVICE_BIT_IN | 0x800,
+    AUDIO_DEVICE_IN_ANLG_DOCK_HEADSET     = AUDIO_DEVICE_BIT_IN | 0x1000,
+    AUDIO_DEVICE_IN_DGTL_DOCK_HEADSET     = AUDIO_DEVICE_BIT_IN | 0x2000,
+    AUDIO_DEVICE_IN_USB_ACCESSORY         = AUDIO_DEVICE_BIT_IN | 0x4000,
     AUDIO_DEVICE_IN_USB_DEVICE            = AUDIO_DEVICE_BIT_IN | 0x1000,
     /* FM tuner input */
     AUDIO_DEVICE_IN_FM_TUNER              = AUDIO_DEVICE_BIT_IN | 0x2000,
@@ -783,7 +760,7 @@ enum {
     AUDIO_DEVICE_IN_IP                    = AUDIO_DEVICE_BIT_IN | 0x80000,
     AUDIO_DEVICE_IN_PROXY                 = AUDIO_DEVICE_BIT_IN | 0x1000000,
     AUDIO_DEVICE_IN_DEFAULT               = AUDIO_DEVICE_BIT_IN | AUDIO_DEVICE_BIT_DEFAULT,
-#endif
+
     AUDIO_DEVICE_IN_ALL     = (AUDIO_DEVICE_IN_COMMUNICATION |
                                AUDIO_DEVICE_IN_AMBIENT |
                                AUDIO_DEVICE_IN_BUILTIN_MIC |
@@ -797,12 +774,14 @@ enum {
                                AUDIO_DEVICE_IN_DGTL_DOCK_HEADSET |
                                AUDIO_DEVICE_IN_USB_ACCESSORY |
                                AUDIO_DEVICE_IN_USB_DEVICE |
+#ifndef HTC_TEGRA_AUDIO
                                AUDIO_DEVICE_IN_FM_TUNER |
                                AUDIO_DEVICE_IN_TV_TUNER |
                                AUDIO_DEVICE_IN_LINE |
                                AUDIO_DEVICE_IN_SPDIF |
                                AUDIO_DEVICE_IN_BLUETOOTH_A2DP |
                                AUDIO_DEVICE_IN_LOOPBACK |
+#endif
                                AUDIO_DEVICE_IN_PROXY |
                                AUDIO_DEVICE_IN_IP |
                                AUDIO_DEVICE_IN_DEFAULT),
@@ -894,19 +873,19 @@ typedef struct {
 #define AUDIO_OFFLOAD_INFO_VERSION_CURRENT AUDIO_OFFLOAD_INFO_VERSION_0_1
 
 static const audio_offload_info_t AUDIO_INFO_INITIALIZER = {
-    .version = AUDIO_OFFLOAD_INFO_VERSION_CURRENT,
-    .size = sizeof(audio_offload_info_t),
-    .sample_rate = 0,
-    .channel_mask = 0,
-    .format = AUDIO_FORMAT_DEFAULT,
-    .stream_type = AUDIO_STREAM_VOICE_CALL,
-    .bit_rate = 0,
-    .duration_us = 0,
-    .has_video = false,
-    .is_streaming = false,
-    .bit_width = 16,
-    .offload_buffer_size = 0,
-    .usage = AUDIO_USAGE_UNKNOWN,
+    version: AUDIO_OFFLOAD_INFO_VERSION_CURRENT,
+    size: sizeof(audio_offload_info_t),
+    sample_rate: 0,
+    channel_mask: 0,
+    format: AUDIO_FORMAT_DEFAULT,
+    stream_type: AUDIO_STREAM_VOICE_CALL,
+    bit_rate: 0,
+    duration_us: 0,
+    has_video: false,
+    is_streaming: false,
+    bit_width: 16,
+    offload_buffer_size: 0,
+    usage: AUDIO_USAGE_UNKNOWN,
 };
 
 /* common audio stream configuration parameters
@@ -923,22 +902,22 @@ struct audio_config {
 typedef struct audio_config audio_config_t;
 
 static const audio_config_t AUDIO_CONFIG_INITIALIZER = {
-    .sample_rate = 0,
-    .channel_mask = AUDIO_CHANNEL_NONE,
-    .format = AUDIO_FORMAT_DEFAULT,
-    .offload_info = {
-        .version = AUDIO_OFFLOAD_INFO_VERSION_CURRENT,
-        .size = sizeof(audio_offload_info_t),
-        .sample_rate = 0,
-        .channel_mask = 0,
-        .format = AUDIO_FORMAT_DEFAULT,
-        .stream_type = AUDIO_STREAM_VOICE_CALL,
-        .bit_rate = 0,
-        .duration_us = 0,
-        .has_video = false,
-        .is_streaming = false
+    sample_rate: 0,
+    channel_mask: AUDIO_CHANNEL_NONE,
+    format: AUDIO_FORMAT_DEFAULT,
+    offload_info: {
+        version: AUDIO_OFFLOAD_INFO_VERSION_CURRENT,
+        size: sizeof(audio_offload_info_t),
+        sample_rate: 0,
+        channel_mask: 0,
+        format: AUDIO_FORMAT_DEFAULT,
+        stream_type: AUDIO_STREAM_VOICE_CALL,
+        bit_rate: 0,
+        duration_us: 0,
+        has_video: false,
+        is_streaming: false
     },
-    .frame_count = 0,
+    frame_count: 0,
 };
 
 
@@ -1513,9 +1492,9 @@ static inline bool audio_is_linear_pcm(audio_format_t format)
 
 static inline bool audio_is_offload_pcm(audio_format_t format)
 {
-    //Keep gcc happy
-    (void)(format);
-
+#ifdef QCOM_HARDWARE
+    return ((format & AUDIO_FORMAT_MAIN_MASK) == AUDIO_FORMAT_PCM_OFFLOAD);
+#endif
     return false;
 }
 
