@@ -1493,6 +1493,7 @@ static inline bool audio_is_offload_pcm(audio_format_t format)
 {
 	// Make gcc Happy 
 	(void)(format);
+	 return false;
 }
 
 static inline size_t audio_bytes_per_sample(audio_format_t format)
