@@ -39,7 +39,7 @@ TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 
 # Some proprietary libs need reservedVectorImpl variants
-COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
+BOARD_GLOBAL_CPPFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 
 # Audio
 BOARD_USES_GENERIC_AUDIO := false
@@ -47,23 +47,23 @@ BOARD_USES_ALSA_AUDIO := false
 
 # Sense 4.5 / Sense 5 audio.primary blob support. See: include/hardware/audio.h
 BOARD_HAVE_PRE_KITKAT_AUDIO_BLOB := true
-COMMON_GLOBAL_CFLAGS += -DHTC_TEGRA_AUDIO
+BOARD_GLOBAL_CPPFLAGS += -DHTC_TEGRA_AUDIO
 # Old MediaBufferGroup::acquire_buffer symbol for libwvm.so
-COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_ACQUIRE_BUFFER_SYMBOL
+BOARD_GLOBAL_CPPFLAGS += -DADD_LEGACY_ACQUIRE_BUFFER_SYMBOL
 
 #Camera
 USE_CAMERA_STUB := false # set to true by vendor
 # external/skia: Old SkImageDecoder::DecodeFile symbol.
 # Needed for camera.vendor.tegra.so and its dependencies.
-COMMON_GLOBAL_CFLAGS += -DSK_SUPPORT_LEGACY_DECODEFILE
-COMMON_GLOBAL_CFLAGS += -DSK_SUPPORT_LEGACY_SETCONFIG
+BOARD_GLOBAL_CPPFLAGS += -DSK_SUPPORT_LEGACY_DECODEFILE
+BOARD_GLOBAL_CPPFLAGS += -DSK_SUPPORT_LEGACY_SETCONFIG
 
 USE_DEVICE_SPECIFIC_CAMERA := true
 
 # OMX
 # frameworks/native/libs/gui: Legacy setPosition symbol for lib libnvwinsys.so
 # which is required by the Nvidia OMX codecs.
-COMMON_GLOBAL_CFLAGS += -DUSES_LEGACY_SET_POSITION
+BOARD_GLOBAL_CPPFLAGS += -DUSES_LEGACY_SET_POSITION
 
 # Enable WEBGL in WebKit
 ENABLE_WEBGL := true
@@ -79,7 +79,7 @@ BOARD_EGL_WORKAROUND_BUG_10194508 := true
 TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 
 # libbinder: Add legacy MemoryDealer constructor for old Nvidia OMX adaptor
-COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_MEMORY_DEALER_CONSTRUCTOR_SYMBOL
+BOARD_GLOBAL_CPPFLAGS += -DADD_LEGACY_MEMORY_DEALER_CONSTRUCTOR_SYMBOL
 
 # BT
 BOARD_HAVE_BLUETOOTH := true
