@@ -3,7 +3,7 @@
 on init
         #cam shim
 
-       export LD_SHIM_LIBS /system/lib/liblog.so|libc_htc_symbols.so:/system/lib/hw/gralloc.tegra.so|libc_htc_symbols.so:/system/lib/hw/hwcomposer.tegra.so|libc_htc_symbols.so:/system/lib/hw/camera.vendor.tegra.so|libshim_cam.so:/system/lib/libril.so|endeavoru_ril.so:/system/lib/ibhtc_ril.so|endeavoru_ril.so:/system/lib/hw/camera.vendor.tegra.so|endeavoru_cam.so:/system/vendor/lib/libwvm.so|endeavoru_cam.so:/system/lib/hw/camera.vendor.tegra.so|libshim_skia.so:/system/lib/libposteffect.so||libshim_skia.so
+       export LD_SHIM_LIBS /system/lib/liblog.so|libc_htc_symbols.so:/system/lib/hw/gralloc.tegra.so|libc_htc_symbols.so:/system/lib/hw/hwcomposer.tegra.so|libc_htc_symbols.so:/system/lib/hw/camera.vendor.tegra.so|libshim_cam.so:/system/lib/libril.so|endeavoru_ril.so:/system/lib/ibhtc_ril.so|endeavoru_ril.so:/system/lib/hw/camera.vendor.tegra.so endeavoru_cam.so:/system/vendor/lib/libwvm.so|endeavoru_cam.so:/system/lib/hw/camera.vendor.tegra.so|libshim_skia.so:/system/lib/libposteffect.so||libshim_skia.so:/system/lib/hw/gralloc.tegra.so|endeavoru_cam.so:/system/lib/hw/hwcomposer.tegra.so|endeavoru_cam:/system/vendor/lib/hw/audio_policy.vendor.tegra.so|endeavoru_cam
 
 
     # We use our own ril-daemon service definition, see htc-ril-daemon
