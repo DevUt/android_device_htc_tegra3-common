@@ -31,10 +31,10 @@ public class AdaptiveBacklight {
      * @return boolean Supported devices must return always true
      */
     public static boolean isSupported() {
-      return FileUtils.isFileWritable(FILE);
-    }
-    public static boolean isEnabled() {
-      return FileUtils.readOneLine(FILE).equals("0");
+  // Just read and write the values, if setEnabled returns true
+        // then the file exists and is writable.
+        boolean enabled = isEnabled();
+        return setEnabled(enabled);
     }
         // Just read and write the values, if setEnabled returns true
         // then the file exists and is writable.
