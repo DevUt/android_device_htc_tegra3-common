@@ -140,17 +140,18 @@ __BEGIN_DECLS
  * All device versions <= HARDWARE_DEVICE_API_VERSION(1, 0xFF) must be treated
  * as CAMERA_DEVICE_API_VERSION_1_0
  */
-#define CAMERA_DEVICE_API_VERSION_1_0 HARDWARE_DEVICE_API_VERSION(1, 0)
-#define CAMERA_DEVICE_API_VERSION_2_0 HARDWARE_DEVICE_API_VERSION(2, 0)
-#define CAMERA_DEVICE_API_VERSION_2_1 HARDWARE_DEVICE_API_VERSION(2, 1)
+#define CAMERA_DEVICE_API_VERSION_1_0 HARDWARE_DEVICE_API_VERSION(1, 0) // DEPRECATED
+#define CAMERA_DEVICE_API_VERSION_2_0 HARDWARE_DEVICE_API_VERSION(2, 0) // NO LONGER SUPPORTED
+#define CAMERA_DEVICE_API_VERSION_2_1 HARDWARE_DEVICE_API_VERSION(2, 1) // NO LONGER SUPPORTED
 #define CAMERA_DEVICE_API_VERSION_3_0 HARDWARE_DEVICE_API_VERSION(3, 0)
 #define CAMERA_DEVICE_API_VERSION_3_1 HARDWARE_DEVICE_API_VERSION(3, 1)
 #define CAMERA_DEVICE_API_VERSION_3_2 HARDWARE_DEVICE_API_VERSION(3, 2)
 #define CAMERA_DEVICE_API_VERSION_3_3 HARDWARE_DEVICE_API_VERSION(3, 3)
+#define CAMERA_DEVICE_API_VERSION_3_4 HARDWARE_DEVICE_API_VERSION(3, 4)
 
-// Device version 3.3 is current, older HAL camera device versions are not
+// Device version 3.4 is current, older HAL camera device versions are not
 // recommended for new devices.
-#define CAMERA_DEVICE_API_VERSION_CURRENT CAMERA_DEVICE_API_VERSION_3_3
+#define CAMERA_DEVICE_API_VERSION_CURRENT CAMERA_DEVICE_API_VERSION_3_4
 
 /**
  * Defined in /system/media/camera/include/system/camera_metadata.h
@@ -418,50 +419,6 @@ typedef struct camera_info {
     size_t conflicting_devices_length;
 
 } camera_info_t;
-
-#ifdef NVIDIA_CAMERA_BLOB
-typedef struct camera_info_extended {
-    /**
-     * The direction that the camera faces to. It should be CAMERA_FACING_BACK
-     * or CAMERA_FACING_FRONT.
-     *
-     * Version information:
-     *   Valid in all camera_module versions
-     */
-    int facing;
-
-    /**
-     * The orientation of the camera image. The value is the angle that the
-     * camera image needs to be rotated clockwise so it shows correctly on the
-     * display in its natural orientation. It should be 0, 90, 180, or 270.
-     *
-     * For example, suppose a device has a naturally tall screen. The
-     * back-facing camera sensor is mounted in landscape. You are looking at the
-     * screen. If the top side of the camera sensor is aligned with the right
-     * edge of the screen in natural orientation, the value should be 90. If the
-     * top side of a front-facing camera sensor is aligned with the right of the
-     * screen, the value should be 270.
-     *
-     * Version information:
-     *   Valid in all camera_module versions
-     */
-    int orientation;
-
-    /**
-     * Indicates whether the camera can be used in stereo mode. It should be
-     * CAMERA_STEREO_CAPS_UNDEFINED, CAMERA_STEREO_CAPS_MONO or CAMERA_STEREO_CAPS_STEREO.
-     */
-    int stereoCaps;
-
-    /**
-     * It indicates whether camera is connected via USB, or is built-in.
-     * CAMERA_CONNECTION_INTERNAL indicates a built-in camera,
-     * while CAMERA_CONNECTION_USB indicates a camera connected via USB. It should be
-     * CAMERA_CONNECTION_UNDEFINED, CAMERA_CONNECTION_INTERNAL or CAMERA_CONNECTION_USB.
-     */
-    int connection;
-} camera_info_extended_t;
-#endif
 
 /**
  * camera_device_status_t:
@@ -768,9 +725,6 @@ typedef struct camera_module {
      *   static metadata (camera_info.static_camera_characteristics).
      */
     int (*get_camera_info)(int camera_id, struct camera_info *info);
-#ifdef NVIDIA_CAMERA_BLOB
-    int (*get_camera_info_extended)(int camera_id, struct camera_info_extended *info);
-#endif
 
     /**
      * set_callbacks:
@@ -961,3 +915,4 @@ typedef struct camera_module {
 __END_DECLS
 
 #endif /* ANDROID_INCLUDE_CAMERA_COMMON_H */
+

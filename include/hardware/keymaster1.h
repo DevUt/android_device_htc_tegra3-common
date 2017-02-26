@@ -539,8 +539,8 @@ struct keymaster1_device {
      *
      * \param[in] copy_num The number of copies that will be saved in the RPMB.
      */
-    keymaster_error_t (*generate_attk_key_pair)(const struct keymaster1_device* dev,
-                                                const uint8_t copy_num);
+     keymaster_error_t (*generate_attk_key_pair)(const struct keymaster1_device* dev,
+                                                 const uint8_t copy_num);
 
     /**
      * Verify the existance ATTK defined in SOTER.
@@ -549,7 +549,7 @@ struct keymaster1_device {
      *
      * Returns: 0 if the ATTK exists.
      */
-    keymaster_error_t (*verify_attk_key_pair)(const struct keymaster1_device* dev);
+     keymaster_error_t (*verify_attk_key_pair)(const struct keymaster1_device* dev);
 
     /**
      * Export the public key of ATTK in PEM format.
@@ -560,9 +560,9 @@ struct keymaster1_device {
      *
      * \param[out] pub_key_data_length The length of the public key data.
      */
-    keymaster_error_t (*export_attk_public_key)(const struct keymaster1_device* dev,
-                                                const uint8_t* pub_key_data,
-                                                const size_t pub_key_data_length);
+     keymaster_error_t (*export_attk_public_key)(const struct keymaster1_device* dev,
+                                                 const uint8_t* pub_key_data,
+                                                 const size_t pub_key_data_length);
 
     /**
      * Get Unique device ID.
@@ -576,9 +576,9 @@ struct keymaster1_device {
      *
      * \param[out] device_id_length The length of the device id.
      */
-    keymaster_error_t (*get_device_id)(const struct keymaster1_device* dev,
-                                                const uint8_t* device_id,
-                                                const size_t device_id_length);
+     keymaster_error_t (*get_device_id)(const struct keymaster1_device* dev,
+                                        const uint8_t* device_id,
+                                        const size_t device_id_length);
 };
 typedef struct keymaster1_device keymaster1_device_t;
 
@@ -595,3 +595,4 @@ static inline int keymaster1_close(keymaster1_device_t* device) {
 __END_DECLS
 
 #endif  // ANDROID_HARDWARE_KEYMASTER1_H
+

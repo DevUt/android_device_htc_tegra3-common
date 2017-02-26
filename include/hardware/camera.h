@@ -280,20 +280,6 @@ typedef struct camera_device_ops {
      * Dump state of the camera hardware
      */
     int (*dump)(struct camera_device *, int fd);
-
-#ifdef NVIDIA_CAMERA_BLOB
-    /**
-     * Set the camera parameters. This returns BAD_VALUE if any parameter is
-     * invalid or not supported.
-     */
-    int (*set_custom_parameters)(struct camera_device *, const char *parms);
-    /**
-     * Retrieve the camera parameters together with Nvidia extended parameters.
-     * The buffer returned by the camera HAL must be returned back to it with
-     * put_parameters, if put_parameters is not NULL.
-     */
-    char *(*get_custom_parameters)(struct camera_device *);
-#endif
 } camera_device_ops_t;
 
 typedef struct camera_device {
@@ -310,3 +296,4 @@ typedef struct camera_device {
 __END_DECLS
 
 #endif /* #ifdef ANDROID_INCLUDE_CAMERA_H */
+
