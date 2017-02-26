@@ -105,5 +105,5 @@ BOARD_RIL_CLASS := ../../../device/htc/tegra3-common/ril/
 BOARD_SKIP_ANDROID_DOC_BUILD := true
 
 # SELinux Defines
-BOARD_SEPOLICY_DIRS := \
-    device/htc/tegra3-common/sepolicy
+#BOARD_SEPOLICY_DIRS := \
+ #   device/htc/tegra3-common/sepolicy
