@@ -138,6 +138,9 @@ PRODUCT_PACKAGES += \
 # HTC LOG
 PRODUCT_PACKAGES += \
     libc_htc_symbols
+#Ramdisk
+PRODUCT_PACKAGES += \
+    init.tegra3-common.rc
 
 #Camera shims
 PRODUCT_PACKAGES += \
